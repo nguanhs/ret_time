@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>File Upload and Processing</title>
+</head>
+<body>
+  <h1>File Upload and Processing</h1>
+  <form action="/process" method="POST" enctype="multipart/form-data">
+    <input type="file" name="upload_file" accept=".txt">
+    <input type="submit" value="Upload and Process">
+  </form>
+  <div id="result"></div>
+
+  <script>
+    const form = document.querySelector('form');
+    const resultDiv = document.getElementById('result');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+      const response = await fetch('/process', {
+        method: 'POST',
+        body: formData
+      });
+
+      const result = await response.text();
+      resultDiv.innerText = result;
+    });
+  </script>
+</body>
+</html>
